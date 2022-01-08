@@ -1,7 +1,7 @@
-# File: sinwave.lsf
+# File: sinewave.lsf
 # Name: D.Saravanan
 # Date: 08/01/2022
-# Script to plot sin wave
+# Script to plot sine wave
 
 x = 0:100;
 y = sin(x/50*pi);
