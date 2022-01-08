@@ -1,0 +1,34 @@
+# File: grating.lsf
+# Name: D.Saravanan
+# Date: 08/01/2022
+# Transmission of plane wave (at 1300 - 1800 nm) through a periodic
+# array of rectangels (n = 3.4; size = 0.5 x 0.5 um2, period = 1 um)
+
+
+# structure
+addrect;                # add a rectangular structure
+set('name', 'grating');
+set('x span', 0.5e-6);  # set x span of rectangle
+set('y span', 0.5e-6);  # set y span of rectangle
+set('index', 3.4);      # set refractive index n = 3.4
+
+# simulation region
+addfdtd;                # add fdtd simulation region
+set('dimension', '2D'); # set dimension as 2D
+set('x span', 1e-6);    # set x span of the simulation region
+set('x min bc', 'Periodic'); # set x boundaries to periodic
+
+# source
+addplane;               # add plane wave source
+set('y', -0.5e-6);      # set y position
+set('center wavelength', 1.55e-6); # set wavelength ranges
+set('wavelength span', 0.5e-6);
+
+# power monitor
+addpower;               # add frequency-domain field and power monitor
+set('y', 0.5e-6);       # set y position of the monitor
+setglobalmonitor('frequency points', 100); # set frequency points 100
+
+run;
+T = getresult('monitor', 'T');
+visualize(T);
